@@ -31,21 +31,22 @@ class Stock(Base):
     __tablename__ = 'stock'
 
     id = sq.Column(sq.Integer, primary_key=True)
-    # count = '' нужно понять зачем это нужно и как это сделать
+    count = sq.Column(sq.Integer)
     id_book = sq.Column(sq.Integer, sq.ForeignKey('book.id'), nullable=False)
     stock_id_book = relationship(Book, backref='book')
-    id_shop = sq.Column(sq.Integer, sq.ForeignKey('shop.id'), nullable=False)
     stock_id_shop = relationship(Shop, backref='shop')
+    id_shop = sq.Column(sq.Integer, sq.ForeignKey('shop.id'), nullable=False)
+
 
 class Sale(Base):
     __tablename__ = 'sale'
 
     id = sq.Column(sq.Integer, primary_key=True, autoincrement=True)
-    prise = sq.Column(sq.Integer, primary_key=True)
+    prise = sq.Column(sq.Integer, nullable=False)
     date_sale = sq.Column(sq.DateTime(), unique=True)
     id_stock = sq.Column(sq.Integer, sq.ForeignKey('stock.id'), nullable=False)
     sale_id_stock = relationship(Stock, backref='stock')
-    # count = нужно понять зачем это нужно и как это сделать
+    count = sq.Column(sq.Integer, nullable=False)
 
 def create_tables(engine):
     Base.metadata.drop_all(engine)
