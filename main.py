@@ -68,6 +68,7 @@ def query_input_publisher_name_books(author_name):
     sql1 = session.query(Publisher, Book, Stock, Shop, Sale).join(Book, Publisher.id == Book.id_publisher).join(Stock, Book.id == Stock.id_book).join(Shop, Stock.id_shop == Shop.id).join(Sale, Stock.id == Sale.id_stock).filter(Publisher.name == author_name).all()
     for publisher, book, stock, shop, sale in sql1:
         print(book.title, shop.name, sale.prise, sale.date_sale)
+        print(f'{book.title}|{shop.name}|{sale.prise}|{sale.date_sale}')
 
 author_name = input("Введите имя автора: ")
 query_input_publisher_name_books(author_name)
